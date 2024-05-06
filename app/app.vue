@@ -3,8 +3,8 @@
     <div class="flex flex-col gap-4 items-center w-full max-w-4xl">
       <h1 class="text-2xl mb-4 text-gray-600">{{ title }}</h1>
 
-      <div v-if="selectedPhoto" ref="imageBox" class="relative w-full rounded-lg overflow-hidden aspect-video">
-        <img :src="selectedPhoto.url" alt="timelapse photo of my plants" class="w-full h-full object-cover" />
+      <div v-if="selectedPhoto" ref="imageBox" class="relative w-full rounded-lg overflow-hidden image shadow-md">
+        <img :src="selectedPhoto.url" alt="timelapse photo of my plants" class="w-full h-auto object-cover" />
         <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full" />
       </div>
 
@@ -13,7 +13,7 @@
         type="range"
         :min="0"
         :max="photos.length - 1"
-        class="w-full h-1 bg-gray-200 rounded-lg appearance-none accent-green-400 cursor-pointer"
+        class="w-full h-1 bg-gray-100 rounded-lg appearance-none accent-green-400 cursor-pointer"
       />
 
       <span class="ml-auto">{{ selectedPhotoDate }}</span>
@@ -60,3 +60,17 @@ onMounted(async () => {
   }, 1000 * 5);
 });
 </script>
+
+<style>
+body {
+  @apply bg-gray-200;
+}
+
+.image {
+  aspect-ratio: 4/3;
+}
+
+.image img {
+  rotate: 180deg;
+}
+</style>

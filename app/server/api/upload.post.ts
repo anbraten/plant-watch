@@ -1,5 +1,4 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
@@ -20,7 +19,14 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  await fs.writeFile(path.join(config.dataPath, `${Date.now()}.jpg`), data);
+  const s3 = useS3();
+  await s3.send(
+    new PutObjectCommand({
+      Bucket: config.s3.bucket,
+      Key: `${Date.now()}.jpg`,
+      Body: data,
+    }),
+  );
 
   return {
     ok: 'true',

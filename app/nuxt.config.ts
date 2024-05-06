@@ -10,6 +10,13 @@ export default defineNuxtConfig({
   runtimeConfig: {
     dataPath: './data',
     apiToken: '12345678',
+    s3: {
+      endpoint: '',
+      region: 'default',
+      accessKey: '',
+      secretKey: '',
+      bucket: 'plant-watch',
+    },
   },
   $production: {
     runtimeConfig: {

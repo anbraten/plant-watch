@@ -1,5 +1,4 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
 
 export default defineEventHandler(async (event) => {
   const timestamp = getRouterParam(event, 'timestamp');
@@ -11,10 +10,17 @@ export default defineEventHandler(async (event) => {
   }
 
   const config = useRuntimeConfig(event);
-  const image = path.join(config.dataPath, `${timestamp}.jpg`);
+
+  const s3 = useS3();
+  const { Body } = await s3.send(
+    new GetObjectCommand({
+      Bucket: config.s3.bucket,
+      Key: `${timestamp}.jpg`,
+    }),
+  );
 
   try {
-    return await fs.readFile(image);
+    return Body;
   } catch {
     throw createError({
       status: 404,
