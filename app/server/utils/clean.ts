@@ -3,8 +3,8 @@ import path from 'node:path';
 import { type H3Event } from 'h3';
 
 const msToMin = 1000 * 60;
-const keepOneImagePerXms = 60 * msToMin; // keep 1 image per 60 minutes
-const keepAllImagesOfLastXms = 15 * msToMin; // keep all images of the last 15 minutes
+const keepOneImagePerXms = 15 * msToMin; // keep 1 image per x minutes
+const keepAllImagesOfLastXms = 15 * msToMin; // keep all images of the last x minutes
 
 export async function cleanupImages(event: H3Event) {
   const config = useRuntimeConfig(event);
