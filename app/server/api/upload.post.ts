@@ -28,6 +28,8 @@ export default defineEventHandler(async (event) => {
     }),
   );
 
+  await cleanupImages(event);
+
   return {
     ok: 'true',
   };
