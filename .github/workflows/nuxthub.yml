@@ -33,3 +33,5 @@ jobs:
         uses: nuxt-hub/action@v2
         with:
           project-key: plant-watch-44ll
+          directory: app
+
